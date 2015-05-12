@@ -1,6 +1,9 @@
+#!/usr/bin/py
+# -*- coding: UTF-8 -*-
 from gi.repository import Gtk
 
 from Parse import *
+from Ascenso import *
 
 global builder, method
 
@@ -20,8 +23,7 @@ class Handler:
 		arg_Entrada = parseProblem(texto_Entrada)
 
 		if method == "radiobutton1":
-			writeDoc(arg_Entrada[0], arg_Entrada[1], arg_Entrada[2])
-			pii()
+			Ascenso(arg_Entrada[0], arg_Entrada[1], arg_Entrada[2], arg_Entrada[3])
 			arg_Salida = getDataSalida()
 			builder.get_object("textview2").get_buffer().set_text(arg_Salida)
 		elif method=="radiobutton2":
