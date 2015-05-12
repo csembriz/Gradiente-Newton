@@ -33,7 +33,11 @@ def Ascenso(objective, varbls, f, punto):
 
 		punto = punto + l_nopt*nabla_eval
 
-		out.write('p_' + str(count) + ' = ' + str(list(punto)))
+		out.write("\nIteración " + str(count))
+		out.write("\n\nNabla(p_" + str(count - 1) + ") = " +  str(list(nabla_eval)) + "\n")
+		out.write(("\nMAX " if objective == 1 else "\nMIN ") + "h(r)=" + str(h(l)).replace('**', '^'))
+		out.write("\nlamb = " + str(l_nopt) + "\n")
+		out.write('\np_' + str(count) + ' = ' + str(list(punto)) + '\n')
 
 		nabla_eval = Matrix([ N(Nab(*flatten(punto))) for Nab in Nabla ])
 

@@ -36,7 +36,7 @@ def findOptimum(h, objective):
 	seed(None)
 
 	#print (h)
-	mroot = 1.1234
+	mroot = None
 	best  = (-10e8 if objective else 10e8)
 	for i in range(0, 15):
 
@@ -51,6 +51,4 @@ def findOptimum(h, objective):
 				if (h(root) < best):
 					mroot = root
 					best  = h(root)
-
-
 	return mroot

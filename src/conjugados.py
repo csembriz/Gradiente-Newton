@@ -24,7 +24,7 @@ def conjugados(objective, varbls, f, punto):
 	out = open("../data/data.out", "w")
 	for i in range(len(Nabla)):
 		out.write('D_' + str(varbls[i]) + " = " + str(Nabla[i](*flatten(varbls))).replace('**', '^') + '\n' )
-
+	
 	condition = conditional(nabla_eval)
 
 	while(condition > 0):
@@ -41,18 +41,18 @@ def conjugados(objective, varbls, f, punto):
 				done = True
 
 		h = Lambda(l, f(*flatten(punto + l*nabla_eval)))
-		#print (h)
-		h_diff = Lambda(l, diff(h(l),l))
-
 		#l_nopt = solve(sympify(h_diff(l)), l)
 		l_nopt = findOptimum(h, objective)
-
 		#print(l_nopt)
 		#print("IC:", findOptimum(h, objective))
 
 		punto = punto + l_nopt*nabla_eval
 
-		out.write('\np_' + str(count) + ' = ' + str(list(punto)))
+		out.write("\nIteración " + str(count))
+		out.write("\n\nNabla(p_" + str(count - 1) + ") = " +  str(list(nabla_eval)) + "\n")
+		out.write(("\nMAX " if objective == 1 else "\nMIN ") + "h(lamb)=" + str(h(l)).replace('**', '^'))
+		out.write("\nlamb = " + str(l_nopt) + "\n")
+		out.write('\np_' + str(count) + ' = ' + str(list(punto)) + '\n')
 
 		nabla_eval = Matrix([ N(Nab(*flatten(punto))) for Nab in Nabla ])
 
@@ -65,6 +65,6 @@ def conjugados(objective, varbls, f, punto):
 if __name__ == "__main__":
     act = 1
     varbls = ['x1', 'x2']
-    f = '-(x1-3)**2-(x2-2)**2'
+    f = '4*(x1+x2)+x1*x2-exp(x1)-exp(2*x2)'
     p = [0, 0]
     conjugados(act, varbls, f, p)
