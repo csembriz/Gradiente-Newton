@@ -9,15 +9,20 @@ def conditional(nabla):
 	return sum(evalu)
 
 def Ascenso(objective, varbls, f, punto):
-	l = Symbol("lamb")
+	l      = Symbol("lamb")
 	varbls = [ Symbol(var) for var in varbls if var in f ]
-	f = Lambda(varbls, f)
+	f      = Lambda(varbls, f)
 
 	Nabla = [ Lambda(varbls, diff(f(*flatten(varbls)),var)) for var in varbls ]
 
-	punto = Matrix([ float(l) for l in punto ])
+	punto = Matrix(punto)
+	count = 1
 
 	nabla_eval = Matrix([ Nab(*flatten(punto)) for Nab in Nabla ])
+
+	out = open("../data/data.out", "w")
+	for i in range(len(Nabla)):
+		out.write('D_' + str(varbls[i]) + " = " + str(Nabla[i](*flatten(varbls))).replace('**', '^') + '\n' )
 
 	condition = conditional(nabla_eval)
 
@@ -28,12 +33,14 @@ def Ascenso(objective, varbls, f, punto):
 
 		punto = punto + l_nopt*nabla_eval
 
+		out.write('p_' + str(count) + ' = ' + str(list(punto)))
+
 		nabla_eval = Matrix([ N(Nab(*flatten(punto))) for Nab in Nabla ])
 
 		condition = conditional(nabla_eval)
-	document = open("../data/data.out","w")
-	document.write(str(punto[0]))
-	document.close()
+		count = count + 1
+
+	out.close()
 
 
 if __name__ == "__main__":

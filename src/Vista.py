@@ -4,6 +4,7 @@ from gi.repository import Gtk
 
 from Parse import *
 from Ascenso import *
+from conjugados import *
 
 global builder, method
 
@@ -27,16 +28,17 @@ class Handler:
 			arg_Salida = getDataSalida()
 			builder.get_object("textview2").get_buffer().set_text(arg_Salida)
 		elif method=="radiobutton2":
-			writeDoc(arg_Entrada[0], arg_Entrada[1], arg_Entrada[2], arg_Entrada[3], arg_Entrada[4], arg_Entrada[5])
-			lpproc()
+			conjugados(arg_Entrada[0], arg_Entrada[1], arg_Entrada[2], arg_Entrada[3])
 			arg_Salida = getDataSalida()
 			builder.get_object("textview2").get_buffer().set_text(arg_Salida)
 
-
+	def on_button3_clicked(self, button):
+		builder.get_object("textview1").get_buffer().set_text("")
+		builder.get_object("textview2").get_buffer().set_text("")
 
 	def on_button2_clicked(self, button):
 		example = "Maximizar\n\
-f(x1,x2)=-(x1-3)**2-(x2-2)**2\n\
+f(x1,x2)=-(x1-3)^2-(x2-2)^2\n\
 p=(0,0)"
 		builder.get_object("textview1").get_buffer().set_text(example)
 

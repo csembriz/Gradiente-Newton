@@ -12,9 +12,9 @@ def parseProblem(myProblem):
         return None
     del myProblem[0]
 
-    funcion = myProblem[0].replace(' ','').split('=')
-    variables = funcion[0].strip('fgh()').split(',')
-    funcion = funcion[1]
+    funcion = myProblem[0].split('=')
+    variables = funcion[0].replace(' ', '').strip('fgh()').split(',')
+    funcion = funcion[1].replace('^', '**').replace(' ', '*')
     del myProblem[0]
 
     p = myProblem[0].replace(' ','')
