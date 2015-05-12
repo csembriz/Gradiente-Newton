@@ -1,0 +1,5 @@
+#! /bin/bash
+
+cd src/
+echo -e "Abriendo...\n"
+python  Vista.py
