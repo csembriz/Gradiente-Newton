@@ -38,8 +38,7 @@ def findOptimum(h, objective):
 	#print (h)
 	mroot = None
 	best  = (-10e8 if objective else 10e8)
-	for i in range(0, 15):
-
+	for i in range(0, 20):
 		root = Newton(dh, random()*200-100)
 		#print ("posible", root)
 		if (abs(N(dh(root))) < 10e-5):
