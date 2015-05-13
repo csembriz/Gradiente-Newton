@@ -99,6 +99,7 @@ def conjugados(objective, varbls, f, punto):
 
 	### latex
 	doc.append('Por lo tanto el punto '+('máximo' if objective else 'mínimo')+' es: ('+parseVarbls([round(c, 3) for c in punto])+')')
+	os.path.dirname()
 	doc.generate_pdf()
 	os.system('qpdfview default_filename.pdf &')
 

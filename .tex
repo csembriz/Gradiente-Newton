@@ -1,0 +1,36 @@
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage[spanish,activeacute]{babel}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+\decimalpoint
+Maximizar:
+$$f(x1, x2)=-(x1 - 3.0)^2 - (x2 - 2.0)^2$$
+
+Derivando la función:
+\begin{align*}
+\nabla f_{x1} & = -2.0x1 + 6.0\\
+\nabla f_{x2} & = -2.0x2 + 4.0\\
+\end{align*}
+\textbf{Iteración 1.}\\
+Evaluamos $\nabla f$ en el punto $p_{0}=(0.0, 0.0)$, entonces $\nabla f =(6.0, 0.0)$. Encontramos que el máximo delta se encuentra en $x1$. Obteniendo $h(r)$:
+$$h(r)=-(6.0r - 3.0)^2 - 4.0$$
+
+Maximizando $h$ encontramos $r$=0.5.			Así $p_{1}$=(3.0, 0.0).$$$$
+\textbf{Iteración 2.}\\
+Evaluamos $\nabla f$ en el punto $p_{1}=(3.0, 0.0)$, entonces $\nabla f =(0.0, 4.0)$. Encontramos que el máximo delta se encuentra en $x2$. Obteniendo $h(r)$:
+$$h(r)=-(4.0r - 2.0)^2 - 1.886e-14$$
+
+Maximizando $h$ encontramos $r$=0.5.			Así $p_{2}$=(3.0, 2.0).$$$$
+Por lo tanto el punto máximo es: (3.0, 2.0)
+\end{document}
