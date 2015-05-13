@@ -4,7 +4,7 @@ from __future__ import absolute_import, division
 from sympy import *
 from findOptimum import *
 from Parse import *
-from pylatex import Document, Section, Math, Package
+from pylatex import Document, Section, Math, Package, TikZ, Axis, Plot
 import os
 
 def conditional(nabla):
@@ -13,6 +13,7 @@ def conditional(nabla):
 
 def Ascenso(objective, varbls, f, punto):
 	l      = Symbol("r")
+	s      = Symbol("x")
 	varbls = [ Symbol(var) for var in varbls if var in f ]
 	f      = Lambda(varbls, f)
 
@@ -76,6 +77,16 @@ def Ascenso(objective, varbls, f, punto):
 		doc.append(Math(data=['h(r)='+parseFunction(h, [l])]))
 		doc.append(('Maximizando' if objective else 'Minimizando')+' $h$ encontramos $r$='+str(round(l_nopt, 3))+'.\
 			Así $p_{'+str(count)+'}$=('+parseVarbls([round(c, 3) for c in punto])+').$$$$')
+
+		with doc.create(TikZ()):
+			plot_options = 'height=9cm, width=9cm, xmin=' + str(l_nopt-5)
+			with doc.create(Axis(options=plot_options)) as plot:
+				plot_options = 'smooth, red'
+				functoplot = str(h(s).expand()).replace('**', '^')
+				plot.append(Plot(name='h(r)', func=functoplot, options=plot_options))
+				plot.append(Plot(name='(h(r),r)', coordinates=[[N(l_nopt), N(h(l_nopt))]]))
+
+		doc.append('$$$$')
 
 
 		nabla_eval = Matrix([ N(Nab(*flatten(punto))) for Nab in Nabla ])
