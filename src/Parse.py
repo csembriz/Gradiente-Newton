@@ -27,7 +27,7 @@ def parseProblem(myProblem):
     return act, variables, funcion, p
 
 def parseFunction(f, varbls):
-    return str(f(*flatten(varbls))).replace('**', '^').replace('*', '')
+    return str(N(f(*flatten(varbls)), 4)).replace('**', '^').replace('*', '')
 
 def parseVarbls(varbls):
     return str(varbls).replace('[', '').replace(']', '')

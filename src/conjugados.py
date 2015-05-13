@@ -100,7 +100,7 @@ def conjugados(objective, varbls, f, punto):
 	### latex
 	doc.append('Por lo tanto el punto '+('máximo' if objective else 'mínimo')+' es: ('+parseVarbls([round(c, 3) for c in punto])+')')
 	doc.generate_pdf()
-	os.system('okular default_filename.pdf &')
+	os.system('qpdfview default_filename.pdf &')
 
 	out.close()
 
@@ -108,6 +108,7 @@ def conjugados(objective, varbls, f, punto):
 if __name__ == "__main__":
     act = 1
     varbls = ['x1', 'x2']
-    f = '4*(x1+x2)+x1*x2-exp(x1)-exp(2*x2)'
+    #f = '4*(x1+x2)+x1*x2-exp(x1)-exp(2*x2)'
+    f = '-(x1-3)**2-(x2-2)**2'
     p = [0, 0]
     conjugados(act, varbls, f, p)
