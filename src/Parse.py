@@ -27,7 +27,7 @@ def parseProblem(myProblem):
     return act, variables, funcion, p
 
 def parseFunction(f, varbls):
-    return str(f(*flatten(varbls))).replace('**', '^').replace('*', '')
+    return str(N(f(*flatten(varbls)), 4)).replace('**', '^').replace('*', '')
 
 def parseVarbls(varbls):
     return str(varbls).replace('[', '').replace(']', '')
@@ -55,7 +55,7 @@ def getDataSalida():
 
 if __name__ == "__main__":
     myProblem = "Maximizar\n\
-f(x1,x2) = 4*(x1+x2)+x1*x2-exp(x1)-exp(2*x2)\n\
+f(x1,x2) = -(x1-3)^2-x1*(x2-2)^2\n\
 p = (0,0)"
     result = parseProblem(myProblem)
     print(result)

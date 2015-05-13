@@ -1,3 +1,5 @@
 python==3.4.3
 sympy==0.7.6
 pylatex==0.7.1
+djview==4.10-2
+latex

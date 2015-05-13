@@ -4,7 +4,7 @@ from __future__ import absolute_import, division
 from sympy import *
 from findOptimum import *
 from Parse import *
-from pylatex import Document, Section, Math, Package
+from pylatex import Document, Section, Math, Package, TikZ, Axis, Plot
 import os
 
 def conditional(nabla):
@@ -13,6 +13,7 @@ def conditional(nabla):
 
 def conjugados(objective, varbls, f, punto):
 	l      = Symbol("r")
+	s      = Symbol("x")
 	varbls = [ Symbol(var) for var in varbls if var in f ]
 	f      = Lambda(varbls, f)
 
@@ -27,6 +28,7 @@ def conjugados(objective, varbls, f, punto):
 
 	### Para crear el .pdf con latex
 	doc = Document()
+
 	doc.packages.append(Package('geometry', options=['margin=1in']))
 	doc.packages.append(Package('inputenc', options=['utf8']))
 	doc.packages.append(Package('babel', options=['spanish', 'activeacute']))
@@ -91,6 +93,16 @@ def conjugados(objective, varbls, f, punto):
 		doc.append(('Maximizando' if objective else 'Minimizando')+' $h$ encontramos $r$='+str(round(l_nopt, 3))+'.\
 			Así $p_{'+str(count)+'}$=('+parseVarbls([round(c, 3) for c in punto])+').$$$$')
 
+		with doc.create(TikZ()):
+			plot_options = 'height=9cm, width=9cm, xmin=' + str(l_nopt-5)
+			with doc.create(Axis(options=plot_options)) as plot:
+				plot_options = 'smooth, red'
+				functoplot = str(h(s).expand()).replace('**', '^')
+				plot.append(Plot(name='h(r)', func=functoplot, options=plot_options))
+				plot.append(Plot(name='(h(r),r)', coordinates=[[N(l_nopt), N(h(l_nopt))]]))
+
+		doc.append('$$$$')
+
 		nabla_eval = Matrix([ N(Nab(*flatten(punto))) for Nab in Nabla ])
 
 		condition = conditional(nabla_eval)
@@ -98,9 +110,14 @@ def conjugados(objective, varbls, f, punto):
 
 	### latex
 	doc.append('Por lo tanto el punto '+('máximo' if objective else 'mínimo')+' es: ('+parseVarbls([round(c, 3) for c in punto])+')')
+<<<<<<< HEAD
 	doc.generate_pdf('conjugados')
 	os.system('mv conjugados.pdf ../pdfs/conjugados.pdf')
 	os.system('okular ../pdfs/conjugados.pdf &')
+=======
+	doc.generate_pdf()
+	os.system('qpdfview default_filename.pdf &')
+>>>>>>> f56f3d0ec65bb6dc170856c95bea9bdfe6a5395d
 
 	out.close()
 
@@ -108,6 +125,7 @@ def conjugados(objective, varbls, f, punto):
 if __name__ == "__main__":
     act = 1
     varbls = ['x1', 'x2']
-    f = '4*(x1+x2)+x1*x2-exp(x1)-exp(2*x2)'
+    #f = '4*(x1+x2)+x1*x2-exp(x1)-exp(2*x2)'
+    f = '-(x1-3)**2-(x2-2)**2'
     p = [0, 0]
     conjugados(act, varbls, f, p)
