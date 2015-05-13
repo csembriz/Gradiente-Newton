@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from Parse import *
 from Ascenso import *
 from conjugados import *
+import os
 
 global builder, method
 
@@ -59,7 +60,7 @@ class Handler:
 
 	def on_button2_clicked(self, button):
 		example = "Maximizar\n\
-f(x1,x2) = -(x1-3)^2-5*(x2-2)^2\n\
+f(x_1,x_2) = -(x_1-3)^2-5*(x_2-2)^2\n\
 p=(0,0)"
 		builder.get_object("textview1").get_buffer().set_text(example)
 		builder.get_object("textview2").get_buffer().set_text("")

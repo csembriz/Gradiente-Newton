@@ -1,5 +1,6 @@
 #!/usr/bin/py
 # -*- coding: UTF-8 -*-
+from sympy import *
 
 def parseProblem(myProblem):
     myProblem = myProblem.split("\n")
@@ -25,6 +26,11 @@ def parseProblem(myProblem):
 
     return act, variables, funcion, p
 
+def parseFunction(f, varbls):
+    return str(f(*flatten(varbls))).replace('**', '^').replace('*', '')
+
+def parseVarbls(varbls):
+    return str(varbls).replace('[', '').replace(']', '')
 
 def writeDoc(act, variables, funcion, point):
     document = open("../data/data.in","w")
