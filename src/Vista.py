@@ -49,6 +49,8 @@ class Handler:
 
 			builder.get_object("textview2").get_buffer().set_text(arg_Salida)
 
+	def on_button1_press_event(self, widget, event):
+		builder.get_object("textview2").get_buffer().set_text("")
 
 	def on_button3_clicked(self, button):
 		builder.get_object("textview1").get_buffer().set_text("")
