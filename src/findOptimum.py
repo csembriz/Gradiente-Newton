@@ -37,9 +37,20 @@ def findOptimum(h, objective):
 
 	#print (h)
 	mroot = None
+	lsup  = 100
+	linf  = -100
 	best  = (-10e8 if objective else 10e8)
-	for i in range(0, 20):
-		root = Newton(dh, random()*200-100)
+	for i in range(0, 10):
+
+		root = Newton(dh, uniform(lsup, linf))
+		
+		while abs(dh(root)) > 10:
+			if dh(root) > -10 and dh(root) < 0:
+				linf = root
+			elif dh(root) > 10 and dh(root) > 0:
+				lsup = root
+			root = Newton(dh, uniform(lsup, linf))
+		
 		#print ("posible", root)
 		if (abs(N(dh(root))) < 10e-5):
 			if (objective):
@@ -51,3 +62,10 @@ def findOptimum(h, objective):
 					mroot = root
 					best  = h(root)
 	return mroot
+
+
+if __name__ == "__main__":
+    act = 1
+    r = Symbol('r')
+    f = Lambda(r, -(6*r-3)**2)
+    print(findOptimum(f,act))

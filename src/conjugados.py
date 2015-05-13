@@ -27,6 +27,7 @@ def conjugados(objective, varbls, f, punto):
 
 	### Para crear el .pdf con latex
 	doc = Document()
+
 	doc.packages.append(Package('geometry', options=['margin=1in']))
 	doc.packages.append(Package('inputenc', options=['utf8']))
 	doc.packages.append(Package('babel', options=['spanish', 'activeacute']))
