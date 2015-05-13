@@ -85,7 +85,7 @@ def Ascenso(objective, varbls, f, punto):
 	### latex
 	doc.append('Por lo tanto el punto '+('máximo' if objective else 'mínimo')+' es: ('+parseVarbls([round(c, 3) for c in punto])+')')
 	doc.generate_pdf()
-	os.system('okular default_filename.pdf &')
+	os.system('qpdfview default_filename.pdf &')
  
 	out.close()
 
