@@ -93,6 +93,7 @@ def conjugados(objective, varbls, f, punto):
 		doc.append(('Maximizando' if objective else 'Minimizando')+' $h$ encontramos $r$='+str(round(l_nopt, 3))+'.\
 			Así $p_{'+str(count)+'}$=('+parseVarbls([round(c, 3) for c in punto])+').$$$$')
 
+		doc.append('\\begin{center}')
 		with doc.create(TikZ()):
 			plot_options = 'height=9cm, width=9cm, xmin=' + str(l_nopt-5)
 			with doc.create(Axis(options=plot_options)) as plot:
@@ -100,6 +101,8 @@ def conjugados(objective, varbls, f, punto):
 				functoplot = str(h(s).expand()).replace('**', '^')
 				plot.append(Plot(name='h(r)', func=functoplot, options=plot_options))
 				plot.append(Plot(name='(h(r),r)', coordinates=[[N(l_nopt), N(h(l_nopt))]]))
+		doc.append('\\end{center}')
+
 
 		doc.append('$$$$')
 
